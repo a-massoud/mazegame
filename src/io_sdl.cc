@@ -81,27 +81,28 @@ void refresh_io(const Maze &maze) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
 
-    SDL_Rect rect{0, 0, CELL_SIZE, CELL_SIZE};
+    static SDL_Rect wall_rect{0, 0, CELL_SIZE, CELL_SIZE};
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     for (int i = 0; static_cast<std::size_t>(i) < maze.height(); ++i) {
         for (int j = 0; static_cast<std::size_t>(j) < maze.width(); ++j) {
             if (maze[{j, i}]) {
-                rect.x = j * CELL_SIZE;
-                rect.y = i * CELL_SIZE;
-                SDL_RenderFillRect(renderer, &rect);
+                wall_rect.x = j * CELL_SIZE;
+                wall_rect.y = i * CELL_SIZE;
+                SDL_RenderFillRect(renderer, &wall_rect);
             }
         }
     }
 
-    rect.x = maze.player().x * CELL_SIZE;
-    rect.y = maze.player().y * CELL_SIZE;
+    static SDL_Rect object_rect{0, 0, 8 * CELL_SIZE / 10, 8 * CELL_SIZE / 10};
+    object_rect.x = maze.player().x * CELL_SIZE + 1 * CELL_SIZE / 10;
+    object_rect.y = maze.player().y * CELL_SIZE + 1 * CELL_SIZE / 10;
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderFillRect(renderer, &object_rect);
 
-    rect.x = maze.goal().x * CELL_SIZE;
-    rect.y = maze.goal().y * CELL_SIZE;
+    object_rect.x = maze.goal().x * CELL_SIZE + 1 * CELL_SIZE / 10;
+    object_rect.y = maze.goal().y * CELL_SIZE + 1 * CELL_SIZE / 10;
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderFillRect(renderer, &object_rect);
 
     SDL_RenderPresent(renderer);
 }
