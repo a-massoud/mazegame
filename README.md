@@ -6,14 +6,14 @@ To compile the SDL version:
 ```
 > mkdir build && cd build
 > cmake -B. -S..
-> cmake --build
+> cmake --build .
 ```
 
 To compile the curses version:
 ```
 > mkdir build && cd build
 > cmake -B. -S.. -DCURSES_BUILD=ON
-> cmake --build
+> cmake --build .
 ```
 
 The executable goes in `bin/`.
