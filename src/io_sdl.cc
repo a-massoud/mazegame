@@ -23,6 +23,7 @@ int init_io(int width, int height) {
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
         SDL_DestroyWindow(window);
+        SDL_Quit();
         return 1;
     }
 
@@ -108,4 +109,5 @@ void refresh_io(const Maze &maze) {
 void quit_io() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    SDL_Quit();
 }
