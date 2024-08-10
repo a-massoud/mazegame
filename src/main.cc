@@ -3,17 +3,20 @@
 #include <cstdlib>
 #include <iostream>
 
+const int WIDTH = 79;
+const int HEIGHT = 23;
+
 int main(int argc, char *argv[]) {
     (void)argc;
     (void)argv;
 
-    if (init_io(79, 23) != 0) {
+    if (init_io(WIDTH, HEIGHT) != 0) {
         std::cerr << "Failed to initialize IO\n";
         return 1;
     }
     std::atexit(quit_io);
 
-    Maze maze(79, 23);
+    Maze maze(WIDTH, HEIGHT);
 
     bool running = true;
     while (running) {
